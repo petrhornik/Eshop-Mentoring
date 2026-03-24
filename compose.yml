@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  apache:
+    build: .
+    container_name: php-web-server
+    ports:
+      - "3001:80"
+    depends_on:
+      - mariadb
+    volumes:
+      - ./php-apache:/var/www
+
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb_database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Bambus_2007*
+      MYSQL_DATABASE: eshop_db
+      MYSQL_USER: eshop_admin
+      MYSQL_PASSWORD: EshopAdmin_002
+    volumes:
+      - ./DB/data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: adminer_DB_panel
+    restart: always
+    ports:
+      - "3002:8080"
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:

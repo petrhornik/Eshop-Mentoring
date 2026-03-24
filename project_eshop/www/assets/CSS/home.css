@@ -1,0 +1,71 @@
+h1{
+    text-align: center;
+    color: #399cec;
+}
+
+.greet {
+    width: 100vw;
+    height: 70vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0f4ff, #d0eaff);
+    border: 1px solid #dceaff;
+}
+
+.home-carousel {
+    width: min(65rem, 100%);
+}
+
+.home-carousel .carousel-inner {
+    aspect-ratio: 16 / 9;
+}
+
+.home-carousel .carousel-item,
+.home-carousel .carousel-item img {
+    height: 100%;
+}
+
+.home-carousel .carousel-item img {
+    object-fit: cover;
+    display: block;
+}
+
+.hero-title {
+    color: #1f5d9c;
+    margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+    color: #4f6278;
+    font-size: 1.05rem;
+}
+
+.section-title {
+    color: #1f5d9c;
+}
+
+.product-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(30, 82, 133, 0.16) !important;
+}
+
+@media (max-width: 992px) {
+    .greet {
+        flex-direction: column !important;
+        text-align: center;
+    }
+}
+
+.post{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: fit-content;
+    padding: 0 1rem;
+    margin: 1rem;
+}

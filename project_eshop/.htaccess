@@ -1,0 +1,12 @@
+Require all denied
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule !\.(pdf|js|ico|gif|jpg|png|css|rar|zip|tar\.gz)$ index.php [L]
+
+<Directory /var/www/html/tvoje-projekt/www>
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>

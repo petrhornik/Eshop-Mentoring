@@ -1,0 +1,40 @@
+
+
+services:
+  apache:
+    build: build/php
+    container_name: php-web-eshop
+    ports:
+      - "80:80"
+    depends_on:
+      - mariadb
+    volumes:
+      - ../:/var/www/html
+    command: >
+      bash -c "docker-php-ext-install mysqli pdo pdo_mysql &&
+               apache2-foreground"
+
+
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb_database-eshop
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Bambus_2007*
+      MYSQL_DATABASE: eshop_db
+      MYSQL_USER: eshop_admin
+      MYSQL_PASSWORD: EshopAdmin_002
+    volumes:
+      - ../DB_access:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: adminer_nette-tutorial
+    restart: always
+    ports:
+      - "3002:8080"
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:

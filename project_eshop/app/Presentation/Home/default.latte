@@ -1,0 +1,69 @@
+<!-- Šablona obsahující HTML a to co přijde z PHP + CSS a JS -->
+<!-- podobne 11ty(Eleventy) -->
+
+{block title}Blog - domovska stranka{/block}	<!-- block = funkcionalita .latte šablonovaciho systému -> určuje co se kam vloží v hlavním @layout.latte kde se strapuje -->
+
+{block content}
+
+	<section class="greet d-flex flex-row align-items-center justify-content-center gap-5">
+		<div id="carouselNews" class="carousel slide home-carousel" data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselNews" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselNews" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+			</div>
+			<div class="carousel-inner rounded-4 shadow">
+				<div class="carousel-item active">
+					<img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Pug 1">
+					<div class="carousel-caption">
+						<h2>TEST</h2>
+					</div>
+
+				</div>
+				<div class="carousel-item">
+					<img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Pug 2">
+					<div class="carousel-caption d-flex justify-content-center align-items-center h-100 ">
+						<h2 class="fs-1">50% OFF</h2>
+					</div>
+				</div>
+
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselNews" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselNews" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		<div>
+			<h1 class="hero-title fw-bold fs-1">Nejlepší nabídky každý den.</h1>
+			<p class="hero-subtitle mb-0">Vyberte si z nejnovějších produktů rychle a přehledně.</p>
+		</div>
+	</section>
+
+	<h2 class="mb-5 mt-5 h1 section-title fw-bolder">Nejnovější produkty</h2>
+
+	<section class="d-flex justify-content-around align-baseline gap-5 flex-wrap product-list">
+		<div n:foreach="$products as $product">
+			<!-- <h2><a href="{link Item:show $product->id}">{$product->creation_date}</a></h2> -->
+			<div class="card shadow border-0 product-card" style="width: 18rem;">
+				<img src="{$basePath}/assets/images/{$product->images}/card_img.png" alt="Logo">
+				<div class="card-body">
+					<h5 class="card-title">{$product->name}</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+					<a n:href="Item:show $product->id" class="btn btn-outline-primary btn-sm">Detail produktu</a>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Rating {$product->star_rating|truncate:256}/5</li>
+					<li class="list-group-item"><p>Prodejce: <a href="#" class="card-link">{$product->seller_id}</a></p></li>
+				</ul>
+				<div class="card-body">
+					<p>Datum přidání: {$product->creation_date|date:'F j, Y'}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{/block} <!-- Pokud nic nenásleduje tak nemusí zde být uzavírka, ale radši ji sem dávat BUDU!! -->

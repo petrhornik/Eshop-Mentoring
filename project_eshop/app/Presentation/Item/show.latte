@@ -1,0 +1,29 @@
+{block title}Detail produktu: {$product->name ?? ('#' . $product->id)}{/block}
+
+{block content}
+    <p><a n:href="Home:default">← zpět na výpis produktů</a></p>
+
+    <h1 class="title mb-4">{$product->name ?? ('Produkt #' . $product->id)}</h1>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="h5 mb-3">Detailní údaje z databáze</h2>
+            <dl class="row mb-0">
+                <div n:foreach="$productData as $column => $value" class="col-12 col-md-6 mb-3">
+                    <dt class="text-muted mb-1">{$column}</dt>
+                    <dd class="mb-0">
+                        {if $value instanceof \DateTimeInterface}
+                            {$value|date:'Y-m-d H:i:s'}
+                        {elseif is_bool($value)}
+                            {$value ? 'true' : 'false'}
+                        {elseif $value === null}
+                            <em>NULL</em>
+                        {else}
+                            {$value}
+                        {/if}
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+{/block}
