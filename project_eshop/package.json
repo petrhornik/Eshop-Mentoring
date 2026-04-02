@@ -3,7 +3,8 @@
 	"dependencies": {
 		"alpinejs": "^3.15.8",
 		"bootstrap": "^5.3.8",
-		"nette-forms": "^3.3"
+		"nette-forms": "^3.3",
+		"vite": "^8.0.3"
 	},
 	"devDependencies": {
 		"@nette/vite-plugin": "^1.0.1"

@@ -1,3 +1,5 @@
+{block title}Nabídka produktů{/block}
+
 {block content}
 
     <h2 class="mb-5 mt-5 h1 section-title fw-bolder">Nabídka produktů</h2>
@@ -8,23 +10,21 @@
 
     <!-- Zde se mi vypisujou všechny produkty jako karty -->
 
-    <section class="d-flex justify-content-around align-baseline gap-5 flex-wrap product-list align-items-center">
+    <section class="d-flex justify-content-around align-baseline gap-5 flex-wrap product-list">
         <div n:foreach="$products as $product">
             <!-- <h2><a href="{link Item:show $product->id}">{$product->creation_date}</a></h2> -->
-            <div class="card shadow border-0 product-card" style="width: 18rem;">
-                <img src="{$basePath}/assets/images/{$product->images}/card_img.png" alt="Logo">
+            <div class="card border-1 rounded-3 product-card" style="width: 18rem;">
+                <div class="card-image">
+                    <img src="{$basePath}/assets/images/{$product->images}/card_img.png" alt="Logo">
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">{$product->name}</h5>
+                    <a n:href="Item:show $product->id"><h5 class="card-title">{$product->name}</h5></a>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                    <a n:href="Item:show $product->id" class="btn btn-outline-primary btn-sm">Detail produktu</a>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Rating {$product->star_rating|truncate:256}/5</li>
-                    <li class="list-group-item"><p>Prodejce: <a href="#" class="card-link">{$product->seller->name}</a></p></li>
+                    <li class="list-group-item"><p>Prodejce: <a n:href="SellerPortfolio:portfolio $product->seller_id" class="card-link">{$product->seller->name}</a></p></li>
                 </ul>
-                <div class="card-body">
-                    <p>Datum přidání: {$product->creation_date|date:'F j, Y'}</p>
-                </div>
             </div>
         </div>
     </section>

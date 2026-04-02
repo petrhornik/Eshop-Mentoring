@@ -1,0 +1,56 @@
+/* Overall styles */
+
+h1{
+    text-align: center;
+    color: #399cec;
+}
+
+img{
+    max-width: 100%;
+}
+
+.section-title{
+    text-align: center;
+    color: #399cec;
+}
+
+/* @layout.latte styles */
+
+/* navbar */
+
+.navbar{
+    background-color: rgba(255,255,255,0.9);
+    z-index: 10;
+}
+
+.navbar-brand{
+    color:red;
+}
+
+.product-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(30, 82, 133, 0.16) !important;
+}
+
+/* footer */
+
+.footer-content{
+    gap: 25rem;
+    margin-bottom: 2rem;
+}
+
+/* Universal Card */
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.card-image{
+    height: 15rem !important;
+}

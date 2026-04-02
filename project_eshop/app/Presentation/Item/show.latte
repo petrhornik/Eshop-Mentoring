@@ -5,9 +5,18 @@
 
     <h1 class="title mb-4">{$product->name ?? ('Produkt #' . $product->id)}</h1>
 
+    <section>
+
+    </section>
+
     <div class="card shadow-sm border-0">
         <div class="card-body">
             <h2 class="h5 mb-3">Detailní údaje z databáze</h2>
+            <div>
+                <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+                    <iframe src="https://www.youtube.com/embed/{$product->trailer_video}" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;" referrerpolicy="strict-origin"></iframe>
+                </div>
+            </div>
             <dl class="row mb-0">
                 <div n:foreach="$productData as $column => $value" class="col-12 col-md-6 mb-3">
                     <dt class="text-muted mb-1">{$column}</dt>
@@ -26,4 +35,6 @@
             </dl>
         </div>
     </div>
+
+
 {/block}
