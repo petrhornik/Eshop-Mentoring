@@ -16,6 +16,6 @@ final class HomePresenter extends Nette\Application\UI\Presenter    // inicializ
         $this->template->products = $this->database    // uložím si data zavolaná z databáze do místní prom. posts (dostupné v default.latte)
             ->table('products')    // název tabulky
             ->order('creation_date DESC') // atributy SQL příkazu - toto je konkrétně order
-            ->limit(10); // další atribut SQL
+            ->limit(8); // další atribut SQL
     }
 }

@@ -3,6 +3,7 @@
 
 {block title}Vítejte{/block}	<!-- block = funkcionalita .latte šablonovaciho systému -> určuje co se kam vloží v hlavním @layout.latte kde se strapuje -->
 
+
 {block content}
 
 	<section id="greetCarousel" class="carousel slide greet-carousel z-0">
@@ -37,12 +38,12 @@
 
 	<h2 class="mb-5 mt-5 h1 section-title fw-bolder">Nejnovější produkty</h2>
 
-	<section class="d-flex justify-content-around align-baseline gap-5 flex-wrap product-list">
+	<section class="d-flex  justify-content-center align-baseline gap-5 flex-wrap product-list " >
 		<div n:foreach="$products as $product">
 			<!-- <h2><a href="{link Item:show $product->id}">{$product->creation_date}</a></h2> -->
 			<div class="card border-1 rounded-3 product-card" style="width: 18rem;">
 				<div class="card-image">
-					<img src="{$basePath}/assets/images/{$product->images}/card_img.png" alt="Logo">
+					<img src="{$basePath}/assets/images/{$product->images}/card/card_img.png" alt="Logo">
 				</div>
 				<div class="card-body">
 					<a n:href="Item:show $product->id"><h5 class="card-title">{$product->name}</h5></a>
