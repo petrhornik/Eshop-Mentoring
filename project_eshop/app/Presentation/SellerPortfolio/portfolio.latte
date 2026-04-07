@@ -1,3 +1,132 @@
-{block content}
+{block title}Portfolio prodejce {$seller->name ?? ('#' . $portfolio->user_id)}{/block}
 
+{block content}
+    {var $sellerName = $seller->name ?? ('Prodejce #' . $portfolio->user_id)}
+    {var $heroTagline = $portfolioData['tagline'] ?? 'Marketplace partner s kurátorským výběrem zboží a rychlou expedicí.'}
+
+    <section class="seller-portfolio-page py-5">
+        <div class="seller-portfolio-shell">
+            <div class="seller-hero card shadow-sm border-0 overflow-hidden">
+                <div class="seller-hero-banner">
+                    <img src="{$basePath}{$bannerImage}" alt="Banner prodejce {$sellerName}">
+                </div>
+
+                <div class="seller-hero-body">
+                    <div class="seller-hero-profile">
+                        <img src="{$basePath}{$profileImage}" alt="Profilová fotografie prodejce {$sellerName}">
+                    </div>
+
+                    <div class="seller-hero-copy">
+                        <div class="seller-badge-row">
+                            <span class="seller-pill">Ověřený seller</span>
+                            <span class="seller-pill seller-pill-accent">ID {$portfolio->user_id}</span>
+                        </div>
+
+                        <h1>{$sellerName}</h1>
+                        <p class="seller-hero-tagline">{$heroTagline}</p>
+                        <p class="seller-hero-description">{$sellerDescription}</p>
+                    </div>
+
+                    <div class="seller-hero-stats">
+                        <div class="seller-stat-card">
+                            <span>Produkty</span>
+                            <strong>{$sellerStats['productCount']}</strong>
+                        </div>
+                        <div class="seller-stat-card">
+                            <span>Portfolio data</span>
+                            <strong>{$sellerStats['portfolioFieldCount']}</strong>
+                        </div>
+                        <div class="seller-stat-card">
+                            <span>Průměrné hodnocení</span>
+                            <strong>{if $sellerStats['averageRating'] !== null}{$sellerStats['averageRating']}/5{else}Nový prodejce{/if}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="seller-portfolio-grid">
+                <article class="seller-panel card shadow-sm border-0">
+                    <div class="seller-panel-header">
+                        <span class="seller-section-kicker">Storefront</span>
+                        <h2>O prodejci</h2>
+                    </div>
+
+                    <p>{$sellerDescription}</p>
+
+                    <div class="seller-highlight-grid">
+                        <div>
+                            <span>Lokalita</span>
+                            <strong>{$portfolioData['city'] ?? ($portfolioData['country'] ?? 'Neuvedeno')}</strong>
+                        </div>
+                        <div>
+                            <span>Kontakt</span>
+                            <strong>{$portfolioData['email'] ?? ($portfolioData['phone'] ?? 'Na vyžádání')}</strong>
+                        </div>
+                        <div>
+                            <span>Brand</span>
+                            <strong>{$sellerHeadline}</strong>
+                        </div>
+                        <div>
+                            <span>Doručení</span>
+                            <strong>{$portfolioData['shipping_info'] ?? 'Standard + express dle produktu'}</strong>
+                        </div>
+                    </div>
+                </article>
+
+                <aside class="seller-panel card shadow-sm border-0">
+                    <div class="seller-panel-header">
+                        <span class="seller-section-kicker">Data</span>
+                        <h2>Portfolio přehled</h2>
+                    </div>
+
+                    <dl class="seller-data-list">
+                        <div n:foreach="$portfolioFields as $field" class="seller-data-row">
+                            <dt>{$field['label']}</dt>
+                            <dd>{$field['value']}</dd>
+                        </div>
+                    </dl>
+                </aside>
+            </div>
+
+            <section class="seller-panel card shadow-sm border-0">
+                <div class="seller-panel-header">
+                    <span class="seller-section-kicker">Sortiment</span>
+                    <h2>Produkty od tohoto prodejce</h2>
+                </div>
+
+                <div class="seller-product-grid">
+                    <article n:foreach="$sellerProducts as $product" class="seller-product-card">
+                        <a n:href="Item:show $product->id" class="seller-product-image">
+                            <img src="{$basePath}/assets/images/{$product->images}/card/card_img.png" alt="{$product->name}">
+                        </a>
+
+                        <div class="seller-product-copy">
+                            <div class="seller-product-meta">
+                                <span>
+                                    {if !empty($productCategories[$product->id])}
+                                        {implode(', ', $productCategories[$product->id])}
+                                    {else}
+                                        Bez kategorie
+                                    {/if}
+                                </span>
+                                <span>{if $product->star_rating !== null}{$product->star_rating}/5{else}Bez hodnocení{/if}</span>
+                            </div>
+
+                            <a n:href="Item:show $product->id" class="seller-product-title">{$product->name}</a>
+                            <p>{$product->description|truncate:90}</p>
+
+                            <div class="seller-product-footer">
+                                <strong>{if ($sellerProductData[$product->id]['price'] ?? null) !== null}{$sellerProductData[$product->id]['price']} Kč{else}Cena na dotaz{/if}</strong>
+                                <a n:href="Item:show $product->id" class="seller-product-link">Zobrazit detail</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <p n:if="count($sellerProducts) === 0" class="seller-empty-state">
+                    Tento prodejce zatím nemá v nabídce žádné aktivní produkty.
+                </p>
+            </section>
+        </div>
+    </section>
 {/block}

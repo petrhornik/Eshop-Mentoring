@@ -6,6 +6,12 @@
     <form action="" class="mb-4">
         <input type="text" class="text-primary">
         <button class="btn-outline-dark btn">Hledat🔍</button>
+        <select name="itemCategory" id="itemCategory">
+            <option value="">-- Vybrat kategorii --</option>
+            {foreach $categories as $category}
+                <option value="{$category->id}">{$category->name}</option>
+            {/foreach}
+        </select>
     </form>
 
     <!-- Zde se mi vypisujou všechny produkty jako karty -->
@@ -19,9 +25,17 @@
                 </div>
                 <div class="card-body">
                     <a n:href="Item:show $product->id"><h5 class="card-title">{$product->name}</h5></a>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                    <p class="card-text">{$product->description|truncate:50}</p>
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Kategorie:
+                        {if !empty($productCategories[$product->id])}
+                            {implode(', ', $productCategories[$product->id])}
+                        {else}
+                            Bez kategorie
+                        {/if}
+                    </li>
                     <li class="list-group-item">Rating {$product->star_rating|truncate:256}/5</li>
                     <li class="list-group-item"><p>Prodejce: <a n:href="SellerPortfolio:portfolio $product->seller_id" class="card-link">{$product->seller->name}</a></p></li>
                 </ul>

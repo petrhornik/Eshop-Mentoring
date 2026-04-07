@@ -12,10 +12,31 @@ final class ProductListPresenter extends Nette\Application\UI\Presenter
 
     public function renderProducts(): void
     {
-        $this->template->products = $this->database
-        ->table('products')
-        ->order('creation_date DESC');
+        $products = $this->database
+            ->table('products')
+            ->order('creation_date DESC');
 
-        // $this->template->sellers = $this->database->query("SELECT usr.name FROM users AS usr JOIN products AS p ON usr.id = p.seller_id");
+        $categories = $this->database
+            ->table('categories');
+
+        $productCategories = [];
+
+        foreach ($products as $product) {
+            $categoryNames = [];
+
+            foreach ($product->related('product_categories') as $productCategory) {
+                $category = $productCategory->ref('categories', 'category_id');
+
+                if ($category !== null) {
+                    $categoryNames[] = $category->name;
+                }
+            }
+
+            $productCategories[$product->id] = $categoryNames;
+        }
+
+        $this->template->products = $products;
+        $this->template->productCategories = $productCategories;
+        $this->template->categories = $categories;
     }
 }

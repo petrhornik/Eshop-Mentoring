@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" fill="none">
+  <rect width="1600" height="520" rx="36" fill="#0E2C45"/>
+  <rect x="36" y="36" width="1528" height="448" rx="28" fill="url(#paint0_linear)"/>
+  <circle cx="1312" cy="118" r="178" fill="#5CB8FF" fill-opacity="0.16"/>
+  <circle cx="251" cy="456" r="228" fill="#FFD3A8" fill-opacity="0.18"/>
+  <path d="M178 339C312 251 433 220 588 232C744 244 840 320 977 330C1128 341 1264 254 1430 153" stroke="white" stroke-opacity="0.28" stroke-width="18" stroke-linecap="round"/>
+  <text x="110" y="208" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="72" font-weight="700">Trusted Marketplace Seller</text>
+  <text x="110" y="280" fill="#DCEEFE" font-family="Segoe UI, Arial, sans-serif" font-size="34">Curated products, fast dispatch and a storefront built for conversion.</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="74" y1="68" x2="1544" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173C5A"/>
+      <stop offset="0.52" stop-color="#1E6FB1"/>
+      <stop offset="1" stop-color="#FF7A45"/>
+    </linearGradient>
+  </defs>
+</svg>

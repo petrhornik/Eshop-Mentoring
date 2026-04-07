@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" fill="none">
+  <rect width="1600" height="520" rx="36" fill="#122D45"/>
+  <rect x="38" y="34" width="1524" height="452" rx="30" fill="url(#paint0_linear)"/>
+  <path d="M1234 59C1150 122 1120 212 1083 296C1044 383 964 448 799 478H1450V59H1234Z" fill="#FFD9C2" fill-opacity="0.24"/>
+  <circle cx="1333" cy="139" r="126" fill="#FFEFE2" fill-opacity="0.18"/>
+  <circle cx="292" cy="402" r="210" fill="#53B4FF" fill-opacity="0.18"/>
+  <text x="116" y="190" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="74" font-weight="700">NovaCellar</text>
+  <text x="116" y="264" fill="#DBEEFF" font-family="Segoe UI, Arial, sans-serif" font-size="34">Premium electronics picks with fast dispatch and strong seller support.</text>
+  <rect x="116" y="314" width="238" height="56" rx="28" fill="white" fill-opacity="0.14"/>
+  <text x="150" y="350" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Top Rated Store</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="72" y1="60" x2="1491" y2="447" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173C5A"/>
+      <stop offset="0.48" stop-color="#245E8D"/>
+      <stop offset="1" stop-color="#FF8556"/>
+    </linearGradient>
+  </defs>
+</svg>

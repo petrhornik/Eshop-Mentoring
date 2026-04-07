@@ -1,0 +1,56 @@
+{block title}Košík{/block}
+
+{block content}
+    <section class="cart-page py-5">
+        <div class="cart-page-shell">
+            <div class="cart-page-header">
+                <div>
+                    <span class="item-section-kicker">Shopping cart</span>
+                    <h1>Vybrané produkty</h1>
+                    <p>Zde vidíte vše, co je aktuálně uložené v localStorage košíku.</p>
+                </div>
+                <a n:href="ProductList:products" class="btn btn-outline-dark">Pokračovat v nákupu</a>
+            </div>
+
+            <div class="cart-page-grid">
+                <section class="cart-page-panel shadow-sm">
+                    <div class="cart-page-panel-header">
+                        <h2>Položky v košíku</h2>
+                        <span data-cart-page-count>0 produktů</span>
+                    </div>
+
+                    <div data-cart-page-list></div>
+
+                    <div class="cart-page-empty" data-cart-page-empty>
+                        Košík je zatím prázdný. Přidejte produkty z detailu produktu.
+                    </div>
+                </section>
+
+                <aside class="cart-page-panel shadow-sm cart-summary-panel">
+                    <div class="cart-page-panel-header">
+                        <h2>Souhrn</h2>
+                    </div>
+
+                    <dl class="cart-summary-list">
+                        <div>
+                            <dt>Počet kusů</dt>
+                            <dd data-cart-summary-qty>0</dd>
+                        </div>
+                        <div>
+                            <dt>Počet produktů</dt>
+                            <dd data-cart-summary-items>0</dd>
+                        </div>
+                        <div>
+                            <dt>Mezisoučet</dt>
+                            <dd data-cart-summary-total>0 Kč</dd>
+                        </div>
+                    </dl>
+
+                    <button type="button" class="btn btn-outline-danger w-100" data-cart-clear>
+                        Vymazat košík
+                    </button>
+                </aside>
+            </div>
+        </div>
+    </section>
+{/block}

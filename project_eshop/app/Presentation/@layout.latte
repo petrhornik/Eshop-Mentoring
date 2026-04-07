@@ -20,40 +20,121 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 	<!-- alpineJS -->
 	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+	<!-- google recapchaV2 -->
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
-<body>
+<body x-data="{ user_form_open: false, user_form_chooser: 1, captchaStatus: false, captchaError: false, websiteLocation: window.location.pathname }">
 	<nav class="navbar navbar-expand-lg p-3 fs-5 position-sticky top-0 shadow-sm">
 		<div class="d-flex justify-content-between w-100 container-fluid">
-			<a class="navbar-brand fs-3 mb-0 fw-bold" href="#">Muj Eshop</a>
+			<a class="navbar-brand fs-3 mb-0 fw-bold" href="#">BlueCart Bazaar</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<p x-text="active"></p>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent" x-data="{ active: '' }">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" n:href="Home:default">Hlavní stránka</a>
+						<a class="nav-link" :class="websiteLocation === '/' && 'active'" aria-current="page" n:href="Home:default">Hlavní stránka</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" n:href="ProductList:products">Produkty</a>
+						<a class="nav-link" :class="websiteLocation.includes('/product-list') && 'active'" n:href="ProductList:products">Produkty</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" n:href="AboutUs:about">O nás</a>
+						<a class="nav-link" :class="websiteLocation.includes('/about-us') && 'active'" n:href="AboutUs:about">O nás</a>
 					</li>
 				</ul>
-				<button type="button" class="btn btn-outline-dark d-flex align-items-center gap-2">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
-						<path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9zM1 7v1h14V7zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5"/>
+				<div class="cart-nav-wrapper" data-cart-hover-area>
+					<a type="button"
+					   n:href="ShoppingCart:overview"
+					   class="btn btn-outline-dark d-flex align-items-center gap-2 cart-nav-button"
+					   data-cart-button>
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
+							<path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9zM1 7v1h14V7zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5"/>
+						</svg>
+						<span class="badge text-bg-secondary" data-cart-count>0</span>
+					</a>
+
+					<div class="cart-flyout shadow-sm" data-cart-flyout hidden>
+						<div class="cart-flyout-header">
+							<strong>Košík</strong>
+							<span data-cart-count-label>0 produktů</span>
+						</div>
+						<div class="cart-flyout-list" data-cart-preview-list></div>
+						<div class="cart-flyout-empty" data-cart-preview-empty>
+							Košík je zatím prázdný.
+						</div>
+						<div class="cart-flyout-footer">
+							<a n:href="ShoppingCart:overview" class="btn btn-primary w-100">Otevřít košík</a>
+						</div>
+					</div>
+				</div>
+				<a href="#" @click="user_form_open = !user_form_open">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle text-black mx-2" viewBox="0 0 16 16" style="width: 2rem">
+						<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+						<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
 					</svg>
-					<span class="badge text-bg-secondary">0</span>
-				</button>
+				</a>
 			</div>
 		</div>
 	</nav>
 
 
 	<section class="d-flex flex-column align-items-center top-0">
+		<div class="overlay align-items-center justify-content-center" x-show="user_form_open">
+			<div class="form-user w-25 mx-auto rounded-3 p-2 bg-white flex-column align-self-center align-items-center p-4" x-show="user_form_chooser === 1">
+				<a class="align-self-end " @click="user_form_open = !user_form_open">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+						<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+					</svg>
+				</a>
+				<h2 class="w-100 text-center">Přihlášení</h2>
+				<form id="userLoginForm" action="" class="d-flex flex-column w-50">
+					<label for="uname">Uživatel: </label>
+					<input type="text" name="uname">
+					<label for="pass">Heslo: </label>
+					<input type="text" name="pass">
+					<div class="w-100 d-flex justify-content-end gap-3">
+						<button class="mt-4 btn-outline-primary w-50">Přihlásit</button>
+						<button @click="user_form_chooser = 2" class="mt-4 btn-outline-primary w-50">Nemáte účet?</button>
+					</div>
+				</form>
+			</div>
+			<div class="form-user w-25 mx-auto rounded-3 p-2 bg-white flex-column align-self-center align-items-center p-4" x-show="user_form_chooser === 2">
+				<a class="align-self-end " @click="user_form_open = !user_form_open">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+						<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+					</svg>
+				</a>
+				<h2 class="w-100 text-center">Registrace</h2>
+				<form id="userRegisterForm" action="/register" method="post" class="d-flex flex-column w-50"
+					  @submit.prevent="{
+					  	if (captchaStatus === false) {
+					  		captchaError = true;
+					  	}else{
+					  		captchaError = false;
+					  		submit();
+					  	}
+					}"
+				>
+					<label for="uname">Uživatel: </label>
+					<input type="text" name="uname">
+					<label for="pass">Heslo: </label>
+					<input type="text" name="pass">
+					<div @change="captchaStatus = true" class="g-recaptcha w-50 mt-2" data-sitekey="6LctaKYsAAAAACcN8gaIX2aN7441UYS_H0ckLONA"></div>
+					<p x-show="captchaError">Prosím proveďte oveření výše. Děkujeme.</p>
+					<div class="w-100 d-flex justify-content-end gap-3 cursor-pointer">
+						<input type="checkbox" name="user_terms" id="user_terms">
+						<label for="user_terms">Souhlasím s podmínkami služby.</label>
+					</div>
+					<div class="w-100 d-flex justify-content-end gap-3 cursor-pointer">
+						<button class="mt-4 btn-outline-primary w-50">Přihlásit</button>
+						<button @click="user_form_chooser = 1" class="mt-4 btn-outline-primary w-50">Nemáte účet?</button>
+					</div>
+				</form>
+			</div>
+		</div>
 		{include content}
 	</section>
 

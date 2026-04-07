@@ -21,22 +21,19 @@ final class ItemPresenter extends Nette\Application\UI\Presenter
             $this->error('Tento produkt neexistuje v databázi.', 404);
         }
 
-        $reviews = $this->database
+        /*$reviews = $this->database
             ->table('product_reviews')
             ->where('product_id', $id);
 
-        if (!$reviews){
+        if ($reviews->count() === 0) {
             $this->template->reviews = "Not found";
         }else{
             $this->template->reviews = $reviews;
         }
 
-        foreach (Finder::findFiles(['*.png'])
-                 -> in( __DIR__ .'/www/assets/images'. $product->images .'/item')
-                 as $name => $file) {
-            echo $file;
-        }
-
+        dump($id);
+        dump($reviews->message->fetchAll());
+        */
         $this->template->product = $product;
         $this->template->productData = $product->toArray();
     }
