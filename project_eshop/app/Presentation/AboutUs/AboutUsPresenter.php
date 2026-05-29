@@ -3,11 +3,12 @@
 namespace App\Presentation\AboutUs;
 
 use Nette;
+use App\Presentation\BasePresenter;
 
-final class AboutUsPresenter extends Nette\Application\UI\Presenter
+final class AboutUsPresenter extends BasePresenter
 {
     public function __construct(
-        private Nette\Database\Explorer $database,
+
     )
     {}
 

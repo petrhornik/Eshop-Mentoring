@@ -2,8 +2,9 @@
 namespace App\Presentation\SellerPortfolio;
 
 use Nette;
+use App\Presentation\BasePresenter;
 
-final class SellerPortfolioPresenter extends Nette\Application\UI\Presenter
+final class SellerPortfolioPresenter extends BasePresenter
 {
     private const FIELD_LABELS = [
         'id' => 'Portfolio ID',

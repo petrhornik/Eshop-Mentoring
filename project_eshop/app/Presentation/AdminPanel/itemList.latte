@@ -1,0 +1,33 @@
+{block content}
+    {if $flashes}
+        <div class="mt-4 d-grid gap-2">
+            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}" role="alert">
+                {$flash->message}
+            </div>
+        </div>
+    {/if}
+
+    <h2>Products by {$sellerName}</h2>
+
+    {if count($products)}
+        <ul class="mt-3">
+            {foreach $products as $product}
+                <li class="mb-2">
+                    <strong>{$product->name}</strong>
+                    {if $product->description}
+                        <span> - {$product->description|truncate:80}</span>
+                    {/if}
+                    <form method="post"
+                          action="{link deleteProduct! $product->id, $selectedSellerId}"
+                          class="d-inline ms-2"
+                          onsubmit="return confirm('Delete product {$product->name|stripHtml}?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                </li>
+            {/foreach}
+        </ul>
+    {else}
+        <p class="mt-3">No products found for this seller.</p>
+    {/if}
+
+{/block}

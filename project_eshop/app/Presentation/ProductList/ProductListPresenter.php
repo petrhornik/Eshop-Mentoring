@@ -2,8 +2,9 @@
 namespace App\Presentation\ProductList;
 
 use Nette;
+use App\Presentation\BasePresenter;
 
-final class ProductListPresenter extends Nette\Application\UI\Presenter
+final class ProductListPresenter extends BasePresenter
 {
     public function __construct(
         private Nette\Database\Explorer $database,

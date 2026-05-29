@@ -1,0 +1,48 @@
+{block content}
+    {if $flashes}
+        <div class="mt-4 d-grid gap-2">
+            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}" role="alert">
+                {$flash->message}
+            </div>
+        </div>
+    {/if}
+
+    <h1 class="mt-4 mb-0">Panel administrátora</h1>
+    <p>Zde můžete mazat, upravovat, a sledovat aktivitu ostatních prodejců a uživatelů.</p>
+
+    <form action="{link default}" method="get">
+        <select name="sellerId" onchange="this.form.submit()">
+            <option value="">-- Select a seller --</option>
+            {foreach $sellers as $sellerId => $sellerName}
+                <option value="{$sellerId}" {if $selectedSellerId === $sellerId}selected{/if}>{$sellerName}</option>
+            {/foreach}
+        </select>
+    </form>
+
+    {if $selectedSeller}
+        <h2 class="mt-4">Products by {$selectedSeller->name}</h2>
+
+        {if count($products)}
+            <ul class="mt-3">
+                {foreach $products as $product}
+                    <li class="mb-2">
+                        <strong>{$product->name}</strong>
+                        {if $product->description}
+                            <span> - {$product->description|truncate:80}</span>
+                        {/if}
+                        <form method="post"
+                              action="{link deleteProduct! $product->id, $selectedSellerId}"
+                              class="d-inline ms-2"
+                              onsubmit="return confirm('Delete product {$product->name|stripHtml}?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </li>
+                {/foreach}
+            </ul>
+        {else}
+            <p class="mt-3">This seller has no products assigned.</p>
+        {/if}
+    {/if}
+
+{/block}
+

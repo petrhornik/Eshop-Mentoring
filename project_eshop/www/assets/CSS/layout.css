@@ -28,6 +28,17 @@ a{
     height: 5rem !important;
 }
 
+/* navbar selected item */
+
+.nav-link{
+    transition: transform 0.2s ease-in-out !important;
+}
+
+.nav-link:hover{
+    color: #2c2c2c !important;
+    transform: translateY(-5px) !important;
+}
+
 .cart-nav-wrapper{
     position: relative;
     margin-left: 1rem;
@@ -163,10 +174,14 @@ a{
 
 /* footer */
 
-.footer-content{
-    gap: 25rem;
-    margin-bottom: 2rem;
+
+
+.map-address-field{
+    width: 30rem !important;
+    height: 25rem !important;
 }
+
+/* Košík CSS */
 
 .cart-page{
     width: min(1180px, calc(100% - 2rem));

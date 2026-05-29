@@ -3,9 +3,10 @@
 namespace App\Presentation\Home;
 
 use Nette; // deklarace užití nette
+use App\Presentation\BasePresenter;
 
 
-final class HomePresenter extends Nette\Application\UI\Presenter    // inicializace presenteru z DI kontejneru (továrny)
+final class HomePresenter extends BasePresenter   // inicializace presenteru z DI kontejneru (továrny)
 {
     public function __construct(    // konstruktor fce. (jako v JS class) tvoří proměnné dostupné uvnitř tohoto odjektu
       private Nette\Database\Explorer $database,
@@ -17,5 +18,10 @@ final class HomePresenter extends Nette\Application\UI\Presenter    // inicializ
             ->table('products')    // název tabulky
             ->order('creation_date DESC') // atributy SQL příkazu - toto je konkrétně order
             ->limit(8); // další atribut SQL
+
+        $user = $this->getUser();
+
+        $this->template->user = $user;
+
     }
 }

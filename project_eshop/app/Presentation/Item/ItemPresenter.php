@@ -2,9 +2,9 @@
 namespace App\Presentation\Item;
 
 use Nette;
-use Nette\Utils\Finder;
+use App\Presentation\BasePresenter;
 
-final class ItemPresenter extends Nette\Application\UI\Presenter
+final class ItemPresenter extends BasePresenter
 {
     public function __construct(
         private Nette\Database\Explorer $database,

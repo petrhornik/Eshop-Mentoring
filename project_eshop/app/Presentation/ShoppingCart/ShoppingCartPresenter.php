@@ -3,9 +3,10 @@
 namespace App\Presentation\ShoppingCart;
 
 use Nette;
+use App\Presentation\BasePresenter;
 
 
-final class ShoppingCartPresenter extends Nette\Application\UI\Presenter
+final class ShoppingCartPresenter extends BasePresenter
 {
     public function __construct(
 
