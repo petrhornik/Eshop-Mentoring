@@ -97,8 +97,8 @@
                             <div class="item-highlight-box">
                                 <span class="item-highlight-label">Cena</span>
                                 <strong class="item-highlight-value">
-                                    {if $price !== null}
-                                        {$price} Kč
+                                    {if $pricing !== null}
+                                        {$pricing->price_no_vat} Kč
                                     {else}
                                         Na dotaz
                                     {/if}
@@ -132,17 +132,11 @@
                         </div>
 
                         <div class="item-cta-row">
-                            <button type="button"
+                            <a
                                     class="btn btn-primary btn-lg item-primary-btn"
-                                    data-cart-add
-                                    data-product-id="{$product->id}"
-                                    data-product-name="{$productName}"
-                                    data-product-price="{$price ?? ''}"
-                                    data-product-image="{$cardImage}"
-                                    data-product-seller="{$sellerName ?? ''}"
-                                    data-product-url="{link Item:show $product->id}">
+                                    n:href="addToCart! $product->id">
                                 Přidat do košíku
-                            </button>
+                            </a>
                             <a n:href="ProductList:products" class="btn btn-outline-dark btn-lg item-secondary-btn">
                                 Pokračovat v nákupu
                             </a>

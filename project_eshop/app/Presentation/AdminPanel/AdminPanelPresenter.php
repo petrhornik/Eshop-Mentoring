@@ -110,7 +110,7 @@ final class AdminPanelPresenter extends BasePresenter
             $product->delete();
 
             $this->database->commit();
-            $this->flashMessage(sprintf('Product "%s" was deleted.', $productName), 'success');
+            $this->flashMessage(sprintf('Product "%s" byl smazán!', $productName), 'success');
         } catch (\Throwable $e) {
             $this->database->rollBack();
             $this->flashMessage('Product could not be deleted. It may still be referenced by orders or other data.', 'danger');

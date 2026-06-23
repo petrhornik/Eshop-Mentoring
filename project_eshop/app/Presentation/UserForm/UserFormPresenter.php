@@ -55,6 +55,7 @@ final class UserFormPresenter extends BasePresenter
     {
         try {
             $this->getUser()->login($data->uname, $data->password);
+
             $this->redirect('Home:default'); // přesměruj po přihlášení
         } catch (Nette\Security\AuthenticationException $e) {
             $form->addError('Špatné jméno nebo heslo.');
@@ -71,6 +72,11 @@ final class UserFormPresenter extends BasePresenter
             ]);
 
             echo '<script>alert("Uživatel úspěšně vytvořen!")</script>';
+
+            //$user = $this->database->table('users')
+            //    ->order('id DESC')
+            //    ->limit(1);
+
 
         } catch (Nette\Database\UniqueConstraintViolationException $e){
             $form->addError('Uživatel již existuje.');

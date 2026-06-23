@@ -21,6 +21,10 @@ final class ItemPresenter extends BasePresenter
             $this->error('Tento produkt neexistuje v databázi.', 404);
         }
 
+        $pricing = $product->related('product_pricing')
+            ->where('currency', 'CZK')
+            ->fetch();
+
         /*$reviews = $this->database
             ->table('product_reviews')
             ->where('product_id', $id);
@@ -36,5 +40,36 @@ final class ItemPresenter extends BasePresenter
         */
         $this->template->product = $product;
         $this->template->productData = $product->toArray();
+        $this->template->pricing = $pricing;
+    }
+
+    public function handleAddToCart(int $productId): void
+    {
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->redirect('Sign:in');
+        }
+
+        $userId = $this->getUser()->getId();
+
+        $existing = $this->database->table('cart_items')
+            ->where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->fetch();
+
+        if ($existing) {
+            $existing->update([
+                'quantity' => $existing->quantity + 1,
+            ]);
+        } else {
+            $this->database->table('cart_items')->insert([
+                'user_id'    => $userId,
+                'product_id' => $productId,
+                'quantity'   => 1,
+            ]);
+        }
+
+        $this->flashMessage('Produkt přidán do košíku.', 'success');
+        $this->flashMessage('WELLLLL....nefunguje....', 'error');
+        $this->redirect('this');
     }
 }

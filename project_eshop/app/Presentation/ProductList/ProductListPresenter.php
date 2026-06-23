@@ -21,6 +21,7 @@ final class ProductListPresenter extends BasePresenter
             ->table('categories');
 
         $productCategories = [];
+        $productPrices = [];
 
         foreach ($products as $product) {
             $categoryNames = [];
@@ -34,10 +35,19 @@ final class ProductListPresenter extends BasePresenter
             }
 
             $productCategories[$product->id] = $categoryNames;
+
+            $priceByCurrency = [];
+
+            foreach ($product->related('product_pricing') as $pricing) {
+                $priceByCurrency[$pricing->currency] = $pricing->price_no_vat;
+            }
+
+            $productPrices[$product->id] = $priceByCurrency;
         }
 
         $this->template->products = $products;
         $this->template->productCategories = $productCategories;
         $this->template->categories = $categories;
+        $this->template->productPrices = $productPrices;
     }
 }

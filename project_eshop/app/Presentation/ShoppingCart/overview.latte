@@ -7,7 +7,7 @@
                 <div>
                     <span class="item-section-kicker">Shopping cart</span>
                     <h1>Vybrané produkty</h1>
-                    <p>Zde vidíte vše, co je aktuálně uložené v localStorage košíku.</p>
+                    <p>Zde vidíte vše co máte momentálně v DB košíku.</p>
                 </div>
                 <a n:href="ProductList:products" class="btn btn-outline-dark">Pokračovat v nákupu</a>
             </div>
@@ -16,13 +16,25 @@
                 <section class="cart-page-panel shadow-sm">
                     <div class="cart-page-panel-header">
                         <h2>Položky v košíku</h2>
-                        <span data-cart-page-count>0 produktů</span>
+                        <span data-cart-page-count>{$count_different_products} produktů</span>
                     </div>
 
                     <div data-cart-page-list></div>
 
                     <div class="cart-page-empty" data-cart-page-empty>
-                        Košík je zatím prázdný. Přidejte produkty z detailu produktu.
+                        {if $cart_items}
+                            {foreach $cart_items as $item}
+                                <div class="d-flex justify-content-between">
+                                    <p>{$item->product_id} - {$item->ref('products', 'product_id')->name} - {$item->quantity}x</p>
+                                    <div>
+                                        <button class="btn btn-outline-danger">Odstranit</button>
+                                        <a n:href="Item:show $item->product_id" class="btn btn-outline-dark">Detail produktu</a>
+                                    </div>
+                                </div>
+                            {/foreach}
+                        {else}
+                            Košík je zatím prázdný. Přidejte produkty z detailu produktu.
+                        {/if}
                     </div>
                 </section>
 
@@ -34,21 +46,21 @@
                     <dl class="cart-summary-list">
                         <div>
                             <dt>Počet kusů</dt>
-                            <dd data-cart-summary-qty>0</dd>
+                            <dd data-cart-summary-qty>{$count_all_products}</dd>
                         </div>
                         <div>
                             <dt>Počet produktů</dt>
-                            <dd data-cart-summary-items>0</dd>
+                            <dd data-cart-summary-items>{$count_different_products}</dd>
                         </div>
                         <div>
                             <dt>Mezisoučet</dt>
-                            <dd data-cart-summary-total>0 Kč</dd>
+                            <dd data-cart-summary-total>well...jeste to nemam :(</dd>
                         </div>
                     </dl>
 
-                    <button type="button" class="btn btn-outline-danger w-100" data-cart-clear>
+                    <a type="button" n:href='removeAllFromCart!' class="btn btn-outline-danger w-100" data-cart-clear>
                         Vymazat košík
-                    </button>
+                    </a>
                 </aside>
             </div>
         </div>
