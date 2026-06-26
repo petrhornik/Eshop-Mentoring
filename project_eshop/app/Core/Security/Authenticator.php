@@ -21,6 +21,19 @@ class Authenticator implements Nette\Security\Authenticator
             ->where('name', $username)
             ->fetch();
 
+        $roles = [];
+
+        try {
+            foreach ($row->related('user_roles') as $user_role) {
+                $role = $user_role->ref('roles', 'role_id');
+
+                $roles[] = $role->name;
+            }
+        }   catch (\Exception $e) {
+            echo '<script>alert("User does not have any roles inside database, please contact administrator or support!!");</script>';
+            throw new Nette\Security\AuthenticationException('Database profile error. Please contact customer support.');
+        }
+
         if (!$row) {
             echo '<script>alert("User not found.");</script>'; //smazat
            throw new Nette\Security\AuthenticationException('User not found.');
@@ -35,7 +48,7 @@ class Authenticator implements Nette\Security\Authenticator
 
         return new SimpleIdentity(
             $row->id,
-            [],                     //dodělat import rolí z "roles" přes "user_roles" (claude)
+            $roles,                     //dodělat import rolí z "roles" přes "user_roles" (claude)
             ['name' => $row->name],
         );
     }

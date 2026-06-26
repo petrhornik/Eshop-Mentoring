@@ -1,0 +1,12 @@
+{block content}
+
+    <h2>Testovací login form</h2>
+    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
+        {$flash->message}
+    </div>
+
+    {control loginForm}
+
+    <a n:href="User:register">Nemáte u nás účet?</a>
+
+{/block}

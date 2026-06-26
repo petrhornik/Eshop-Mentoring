@@ -1,0 +1,29 @@
+{block content}
+
+    <h1>Editor uživatele</h1>
+
+    <h3>Změna přihlašovacích údajů</h3>
+
+    <form action="" n:name="userChangeCredentialsForm">
+        <div>
+            <label n:name="uname" />
+            <input type="text" n:name="uname">
+        </div>
+        <div>
+            <label n:name="email" />
+            <input type="email" n:name="email">
+        </div>
+        <div>
+            <label n:name="password" />
+            <input type="password" n:name="password">
+        </div>
+        <button name="submit" type="submit">Provést</button>
+    </form>
+
+    <h3>Změna hesla profilu</h3>
+    {control userChangePassForm}
+
+    <h3>Profil prodejce</h3>
+    <p>Status -> </p>
+    <a n:href="sellerStatusToggle!" class="btn btn-outline-dark">Přepnout</a>
+{/block}

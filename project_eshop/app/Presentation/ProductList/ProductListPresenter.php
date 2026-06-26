@@ -13,6 +13,7 @@ final class ProductListPresenter extends BasePresenter
 
     public function renderProducts(): void
     {
+
         $products = $this->database
             ->table('products')
             ->order('creation_date DESC');

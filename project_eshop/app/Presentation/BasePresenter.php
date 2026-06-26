@@ -32,7 +32,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     public function handleUserLogout(): void
     {
-        $this->getUser()->logout();
+        $this->getUser()->logout(true);
         $this->flashMessage('User logged out.', 'success'); // dočíst si víc v docs
     }
 }

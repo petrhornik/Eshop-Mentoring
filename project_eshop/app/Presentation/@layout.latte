@@ -28,6 +28,8 @@
 	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 	<!-- google recapchaV2 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+	<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 </head>
 
 <body x-data="{
@@ -125,7 +127,7 @@
 					</svg>
 				</a>
 				{if (!$isLoggedIn)}
-					<a n:href="UserForm:login">Přihlásit</a>
+					<a n:href="User:login">Přihlásit</a>
 					{else}
 						<a n:href="UserLogout!">Odhlásit se</a>
 				{/if}
@@ -148,6 +150,7 @@
 					<h3>
 						{if $activeUser}
 							{$activeUser->name}
+							<a n:href="User:edit">Upravit účet</a>
 						{else}
 							Uživatel nepřihlášen...
 						{/if}
