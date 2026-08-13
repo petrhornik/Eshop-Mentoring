@@ -4,6 +4,10 @@
 
     <h3>Změna přihlašovacích údajů</h3>
 
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+        {$flash->message}
+    </div>
+
     <form action="" n:name="userChangeCredentialsForm">
         <div>
             <label n:name="uname" />
@@ -24,6 +28,8 @@
     {control userChangePassForm}
 
     <h3>Profil prodejce</h3>
-    <p>Status -> </p>
-    <a n:href="sellerStatusToggle!" class="btn btn-outline-dark">Přepnout</a>
+    <p>Status -> {$sellerStatus}</p>
+    <div>
+        <a n:href="sellerStatusForm!" class="btn btn-outline-dark">Přepnout</a>
+    </div>
 {/block}

@@ -39,7 +39,6 @@
 	captchaStatus: false,
 	captchaError: false,
 	websiteLocation: window.location.pathname,
-	shopping_cart: { items: [], total: 0 },
 	cart_flyout_open: false,
 	cart_flyout_timeout: null,
 	openFlyout() {
@@ -97,7 +96,7 @@
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
 							<path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9zM1 7v1h14V7zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5"/>
 						</svg>
-						<span class="badge text-bg-secondary" data-cart-count>{$cart_items_count}</span>
+						<span class="badge text-bg-secondary" data-cart-count>{$cartItemsCount}</span>
 					</a>
 
 					<div class="cart-flyout shadow-sm"
@@ -109,11 +108,13 @@
 						 @mouseleave="closeFlyout()">
 						<div class="cart-flyout-header">
 							<strong>Košík</strong>
-							<span data-cart-count-label>0 produktů</span>
+								<span data-cart-count-label>{$cartItemsCount} kusů</span>
 						</div>
 						<div class="cart-flyout-list" data-cart-preview-list></div>
 						<div class="cart-flyout-empty" data-cart-preview-empty>
-							Košík je zatím prázdný.
+							{foreach $cartItems as $item}
+								<p><p>{$item->product_id} - {$item->ref('products', 'product_id')->name} - {$item->quantity}x</p></p>
+							{/foreach}
 						</div>
 						<div class="cart-flyout-footer">
 							<a n:href="ShoppingCart:overview" class="btn btn-primary w-100">Otevřít košík</a>
@@ -128,8 +129,8 @@
 				</a>
 				{if (!$isLoggedIn)}
 					<a n:href="User:login">Přihlásit</a>
-					{else}
-						<a n:href="UserLogout!">Odhlásit se</a>
+				{else}
+					<a n:href="UserLogout!">Odhlásit se</a>
 				{/if}
 			</div>
 		</div>
@@ -148,9 +149,12 @@
 				<div class="d-flex flex-column ">
 					<h2 class="w-100">Vítejte zpět!</h2>
 					<h3>
-						{if $activeUser}
-							{$activeUser->name}
+						{if $user->getIdentity()}
+							{$user->getIdentity()->name}
 							<a n:href="User:edit">Upravit účet</a>
+							{if ($user->isInRole('seller'))}
+								<a n:href="Seller:profileEdit">Editor Prodejce</a>
+							{/if}
 						{else}
 							Uživatel nepřihlášen...
 						{/if}

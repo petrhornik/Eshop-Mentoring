@@ -9,7 +9,7 @@
                     <h1>Vybrané produkty</h1>
                     <p>Zde vidíte vše co máte momentálně v DB košíku.</p>
                 </div>
-                <a n:href="ProductList:products" class="btn btn-outline-dark">Pokračovat v nákupu</a>
+                <a n:href="ShoppingCart:payment" class="btn btn-outline-dark">Pokračovat k platbě</a>
             </div>
 
             <div class="cart-page-grid">
@@ -27,7 +27,7 @@
                                 <div class="d-flex justify-content-between">
                                     <p>{$item->product_id} - {$item->ref('products', 'product_id')->name} - {$item->quantity}x</p>
                                     <div>
-                                        <button class="btn btn-outline-danger">Odstranit</button>
+                                        <a class="btn btn-outline-danger" n:href="removeFromCart!, id => $item->product_id " >Odstranit</a>
                                         <a n:href="Item:show $item->product_id" class="btn btn-outline-dark">Detail produktu</a>
                                     </div>
                                 </div>

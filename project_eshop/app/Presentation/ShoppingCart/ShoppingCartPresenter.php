@@ -30,6 +30,8 @@ final class ShoppingCartPresenter extends BasePresenter
         $count_all_products = $cart_items
             ->sum('quantity');
 
+        $count_all_products = $count_all_products === null ? 0 : $count_all_products;
+
         $count_different_products = $cart_items
             ->count('product_id');
 
@@ -41,7 +43,12 @@ final class ShoppingCartPresenter extends BasePresenter
 
     public function handleRemoveFromCart($id): void
     {
+        $userId = $this->getUser()->getId();
 
+        $this->database->table('cart_items')
+            ->where("user_id", $userId)
+            ->where('product_id', $id)
+            ->delete();
     }
 
     public function handleRemoveAllFromCart(): void
@@ -49,7 +56,7 @@ final class ShoppingCartPresenter extends BasePresenter
         $userId = $this->getUser()->getId();
 
         $this->database->table('cart_items')
-            ->get($userId)
+            ->where('user_id',$userId)
             ->delete();
     }
 }

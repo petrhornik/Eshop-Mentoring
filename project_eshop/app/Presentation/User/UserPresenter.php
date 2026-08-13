@@ -95,7 +95,14 @@ final class UserPresenter extends BasePresenter
             $this->redirect('User:login');
         }
 
-        $this->template->user = $this->getUser();
+        $sellerStatus = (bool) $this->database->table('user_roles')
+                            ->where('role_id', 2)
+                            ->where('user_id', $this->getUser()->getId())
+                            ->fetch();
+
+
+
+        $this->template->sellerStatus = !$sellerStatus ? "Nenastaveno" : "Nastaveno";
 
     }
 
@@ -157,7 +164,17 @@ final class UserPresenter extends BasePresenter
 
     }
 
-    public function handleSellerStatusToggle(): void {
+    public function handleSellerStatusForm(): void {
 
+        $sellerStatus = (bool) $this->database->table('user_roles')
+            ->where('role_id', 2)
+            ->where('user_id', $this->getUser()->getId())
+            ->fetch();
+
+        if (!$sellerStatus) {
+            $this->redirect('Seller:profileCreate');
+        } else{
+            $this->redirect('Seller:profileEdit');
+        }
     }
 }

@@ -19,15 +19,22 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
         $userId = $this->getUser()->getId();
 
-        $cart_items_count = $userId === null
+        $cartItems = $this->database->table('cart_items')
+            ->where('user_id', $userId);
+
+        $cartItemsCount = $userId === null
             ? 0
             : $this->database->table('cart_items')
                 ->where('user_id', $userId)
-                ->count('product_id');
+                ->sum('quantity');
 
-        $this->template->activeUser = $this->getUser()->getIdentity();
+        $cartItemsCount = $cartItemsCount === null ? 0 : $cartItemsCount;
+
+        $this->template->user = $this->getUser();
         $this->template->isLoggedIn = $this->getUser()->isLoggedIn();
-        $this->template->cart_items_count = $cart_items_count;
+        $this->template->cartItems = $cartItems;
+        $this->template->cartItemsCount = $cartItemsCount;
+
     }
 
     public function handleUserLogout(): void

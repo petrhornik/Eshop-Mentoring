@@ -2,6 +2,7 @@
 
 namespace App\Presentation\Seller;
 
+use JetBrains\PhpStorm\NoReturn;
 use Nette;
 use App\Presentation\BasePresenter;
 use Nette\Application\UI\Form;
@@ -14,9 +15,27 @@ final class SellerPresenter extends BasePresenter
 
     ){}
 
+    //provede se mi před jakýmkoli .latte v presenteru + můžu udělat výjimky u konkrétních -> prevence accesu editorů kromě create Profile bez práv prodejce
+    public function startup(): void     {
+        parent::startup();
+
+        $currAction = $this->getAction();
+
+        $allowedActions = ['profileCreate'];
+
+        $user = $this->getUser();
+
+        if(!($user->isInRole('seller')) && !in_array($currAction, $allowedActions)) {
+            $this->flashMessage('Váš účet nemá oprávnění pro tuto stránku! Pro tuto akci se prosím zaregistrujte jako prodejce...', "error");
+            $this->redirect('User:edit');
+
+        }
+
+    }
+
     public function renderProfileCreate(): void
     {
-        if (!$this->getUser()->isInRole('seller')) {
+        if ($this->getUser()->isInRole('seller')) {
             $this->flashMessage('Na tuto stránku nemůžete přistoupit. Zkuste se přihlásit jinným účtem či se přihlaste.', 'danger');
             $this->redirect('User:login');
         }
@@ -39,4 +58,10 @@ final class SellerPresenter extends BasePresenter
 
         return $form;
     }
+
+    #[NoReturn]
+    public function profileCreationFormSucceeded(Form $form, \stdClass $user): void {
+        $this->redirect('SellerPortfolio:portfolio', $this->getUser()->getId());
+    }
+
 }
